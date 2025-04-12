@@ -1,83 +1,47 @@
-<<<<<<< HEAD
-# SIT737 - Practical 6P: Deploying a Node.js App on Kubernetes
 
-## 📦 Task Overview
+# SIT737-2025-Prac6C - Cloud Native Application Development
 
-This task demonstrates how to deploy a containerized Node.js application (from Practical 5.1P) onto a Kubernetes cluster using Google Cloud Kubernetes Engine (GKE). The project includes creating the Docker image, setting up the Kubernetes cluster, deploying the application, and exposing it via a service.
+## Overview
 
----
+This repository contains the code and configuration files for **SIT737-2025-Prac6C** project, which is part of the Cloud Native Application Development course. In this part of the project, we continue interacting with a Kubernetes cluster to deploy and manage a microservice application. The application is built with **Node.js** and **Docker**.
 
-## 🧰 Tools & Technologies Used
+## Prerequisites
 
-- Google Cloud Platform (GCP) - Kubernetes Engine
-- Kubernetes CLI (`kubectl`)
-- Docker CLI
-- Node.js
-- Visual Studio Code
-- GitHub
+Before you can work with this project, make sure you have the following tools installed:
 
----
+- **[Git](https://git-scm.com/)** - for version control
+- **[Node.js](https://nodejs.org/en/download/)** - to run and develop the Node.js application
+- **[Docker](https://www.docker.com/get-started)** - to build and manage Docker containers
+- **[Kubernetes](https://kubernetes.io/)** - the platform for deploying and managing containers
+- **[Kubectl](https://kubernetes.io/docs/tasks/tools/)** - the command-line tool for interacting with Kubernetes clusters
 
-## ✅ Prerequisites
+## Project Structure
 
-- Node.js application built and tested (from 5.1P)
-- Docker installed and configured
-- Google Cloud account and project created
-- Google Kubernetes Engine API enabled
-- `kubectl` and `gcloud` CLI installed and authenticated
+## Instructions for Running the Application
 
----
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/CODEHAPP/sit737-2025-prac6c.git
+   cd sit737-2025-prac6c
+2.Build the Docker image: In the project directory, run:
+docker build -t nodejs-kube-app .
+3.Deploy the application to Kubernetes: After building the Docker image, use the following command to deploy it to your Kubernetes cluster:
+kubectl apply -f kubernetes/deployment.yaml
+kubectl apply -f kubernetes/service.yaml
+4.Verify the deployment: You can check the status of your application using:
+kubectl get pods
+kubectl get services
+5.Access the application: Forward the port from your Kubernetes service to your local machine:
+kubectl port-forward service/nodejs-kube-app 3000:3000
+Then open your browser and navigate to http://localhost:3000 to access the application.
 
-## 🚀 Steps to Reproduce
+Updating the Application
 
-### 1. Clone the Repository
+1.Build a new Docker image with a new tag:
+docker build -t nodejs-kube-app:v2 .
+Update the Kubernetes deployment configuration to use the new image tag by modifying the deployment.yaml file.
 
-```bash
-git clone https://github.com/yourusername/sit737-2025-prac6p.git
-cd sit737-2025-prac6p
-2. Build and Push Docker Image
-# Build Docker image
-docker build -t gcr.io/YOUR_PROJECT_ID/nodejs-kube-app .
-
-# Push to Google Container Registry (GCR)
-docker push gcr.io/YOUR_PROJECT_ID/nodejs-kube-app
-3. Create Kubernetes Cluster
-# Create a 1-node cluster in australia-southeast1
-gcloud container clusters create nodejs-cluster \
-  --num-nodes=1 \
-  --region=australia-southeast1
-4. Connect kubectl to the Cluster
-gcloud container clusters get-credentials nodejs-cluster --region=australia-southeast1
-5. Deploy the App to Kubernetes
-kubectl apply -f deployment.yaml
-6. Expose the App with a Service
-kubectl apply -f service.yaml
-7. Get External IP and Access the App
-kubectl get service
-Open the EXTERNAL-IP in your browser to access the Node.js app.
-
-📂 Project Structure
-sit737-2025-prac6p/
-│
-├── Dockerfile
-├── deployment.yaml
-├── service.yaml
-├── README.md
-└── app/
-    ├── server.js
-    └── package.json
-🖼 Screenshots (Include in GitHub)
-✅ Cluster created in GCP
-![image](https://github.com/user-attachments/assets/de95dfb8-0133-4cfa-abcb-7d83cfe97a4a)
-✅ Docker image pushed to GCR
-![image](https://github.com/user-attachments/assets/16622b0b-31a9-40a1-a8c2-ef56210b418b)
-
-✅ Successful output of kubectl apply
-✅ kubectl get pods and kubectl get service terminal output
-![image](https://github.com/user-attachments/assets/1d356847-7ef0-4761-9e12-28db9423114b)
+2.Apply the updated deployment:
+kubectl apply -f kubernetes/deployment.yaml
 
 
-
-=======
-# sit737-2025-prac6c
->>>>>>> fd56a4826dec23083c9c17e7e71e8a1cf6659aee
